@@ -1,0 +1,4 @@
+# Synthetic learning data only. Columns: id, title, passage (tab-separated).
+duplicate-events	Duplicate events	For duplicate events, compare the event ID with the processed ID store. Do not apply the same event twice.
+consumer-lag	Consumer lag	For consumer lag, inspect partition throughput and downstream latency before increasing consumer concurrency.
+stale-prices	Stale prices	For stale prices, check the market data timestamp and feed health. Escalate to the operator; do not invent a replacement price.
