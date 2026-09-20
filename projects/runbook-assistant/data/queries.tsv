@@ -1,0 +1,6 @@
+# Synthetic fixture: query, relevant source ID (NONE means unanswerable).
+How do I handle duplicate events?	duplicate-events
+How do I investigate consumer lag?	consumer-lag
+What should I check for stale prices?	stale-prices
+replayed messages	duplicate-events
+banana bread recipe	NONE
