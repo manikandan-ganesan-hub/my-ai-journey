@@ -1,148 +1,113 @@
 # My AI Journey
 
-[![Python](https://img.shields.io/badge/Python-3.11-blue)](https://www.python.org/)
-[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.14-orange)](https://www.tensorflow.org/)
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.1-red)](https://pytorch.org/)
-[![OpenAI](https://img.shields.io/badge/OpenAI-API-green)](https://platform.openai.com/)
+AI engineering explained for software developers and architects, with small
+working examples and production trade-offs. I am an experienced software
+architect learning AI through explanations, experiments, and practical projects.
 
-Welcome to **My AI Journey**!  
-This repository is designed for anyone interested in learning Artificial Intelligence—from beginners to working professionals. Here, you will find **conceptual learning**, **tools and platforms**, **practical coding projects**, and guidance on **growth strategies and community engagement**.
+Start with [LLMs as software components](learning/llm-components.md), then
+[retrieval and evidence](learning/retrieval.md), and run the
+[Java runbook assistant](projects/runbook-assistant/README.md).
 
-The repository is structured to help you **learn AI concepts first**, explore **available tools and applications**, and then **apply your knowledge through hands-on coding and projects**.
+## Who this is for
 
----
+Java and backend developers entering AI, architects designing LLM applications,
+and beginners who want intuition before mathematics. Examples connect familiar
+ideas—API contracts, queues, deadlines, and tests—to model-based systems.
+You do not need a GPU or a paid account for the first project.
 
-## Table of Contents
+## Learning path and progress
 
-- [1. Conceptual Learning](#1-conceptual-learning)
-  - [Foundations of AI](#foundations-of-ai)
-  - [Core Machine Learning Paradigms](#core-machine-learning-paradigms)
-  - [Essential Algorithms](#essential-algorithms)
-  - [Evaluation Metrics](#evaluation-metrics)
-  - [Data Preparation Essentials](#data-preparation-essentials)
-  - [Modern AI Techniques](#modern-ai-techniques)
-  - [Advanced AI Topics](#advanced-ai-topics)
-- [2. Tools and Platforms](#2-tools-and-platforms)
-  - [APIs and Interfaces](#apis-and-interfaces)
-  - [Low-Code / No-Code Platforms](#low-code--no-code-platforms)
-  - [Experiment Tracking & Visualization](#experiment-tracking--visualization)
-- [3. Practical Coding & Projects](#3-practical-coding--projects)
-  - [Environment Setup](#environment-setup)
-  - [Beginner Projects](#beginner-projects)
-  - [Intermediate Projects](#intermediate-projects)
-- [4. Learning & Growth Strategies](#4-learning--growth-strategies)
-- [5. Community Engagement & Contribution](#5-community-engagement--contribution)
+```mermaid
+flowchart TD
+    A[Understand model behavior] --> B[Retrieve useful evidence]
+    B --> C[Run the Java baseline]
+    C --> D[Design service boundaries]
+    D --> E[Planned: generation and evaluation]
+```
 
----
+| Material                                                       | Status    | What is available                                |
+| -------------------------------------------------------------- | --------- | ------------------------------------------------ |
+| [LLM foundations](learning/llm-components.md)                  | Available | Conceptual explanation and prompt exercise       |
+| [Retrieval and embeddings](learning/retrieval.md)              | Available | Conceptual explanation and vector calculation    |
+| [Runbook assistant](projects/runbook-assistant/README.md)      | Available | Working Java retrieval and excerpt example       |
+| [Backend architecture](architecture/document-assistant.md)     | Available | Design walkthrough; service is not implemented   |
+| [Glossary](learning/glossary.md) and [resources](RESOURCES.md) | Available | Definitions and external learning resources      |
+| Spring AI generation, Python comparison, evaluation lab        | Planned   | Acceptance criteria in the [roadmap](ROADMAP.md) |
 
-## 1. Conceptual Learning
+Available means the linked artifact exists; it does not imply a production system.
+In progress is reserved for work present on a branch. No module currently has that status.
 
-### Foundations of AI
-- What is Artificial Intelligence?  
-- AI vs Machine Learning vs Deep Learning  
+## Practical project
 
-### Core Machine Learning Paradigms
-- Supervised Learning  
-- Unsupervised Learning  
-- Reinforcement Learning  
+The **runbook assistant** finds passages in fictional operational documentation.
+It uses word-count vectors and cosine similarity, then returns a verbatim excerpt
+with a source ID. It has tests and a small retrieval evaluation set.
+It does **not** use learned embeddings or generate answers with an LLM.
+This baseline makes retrieval failures visible before adding model variability.
 
-### Essential Algorithms
-- Linear Regression  
-- Decision Trees  
-- k-Nearest Neighbors (k-NN)  
-- Introduction to Neural Networks  
+The [architecture walkthrough](architecture/document-assistant.md) develops this
+into a proposed Spring AI service with authorization, bounded concurrency,
+deadlines, evaluation, and a read-only boundary. Production controls are design
+recommendations, not claims about the CLI.
 
-### Evaluation Metrics
-- Accuracy  
-- Precision  
-- Recall  
-- F1 Score  
+## How to use this repository
 
-### Data Preparation Essentials
-- Data Cleaning  
-- Feature Engineering  
-- Train/Test Split  
+1. Read the two learning modules in order. Use the glossary when a term is new.
+2. Run the project and change one query or document. Inspect the retrieved source.
+3. Try the failure exercises, then review the architecture trade-offs.
+4. Use external resources for depth; the roadmap identifies content still to come.
 
-### Modern AI Techniques
-- Natural Language Processing (NLP) Fundamentals  
-- Tokenization & Word Embeddings  
-- Sequence Models: RNNs, LSTMs, Transformers  
-- Generative AI Basics  
-- Generative Adversarial Networks (GANs)  
-- Variational Autoencoders  
-- Large Language Models (LLMs)  
-  - Pre-training & Fine-tuning  
-  - Prompting Techniques  
+## Prerequisites and local setup
 
-### Advanced AI Topics
-- Prompt Engineering  
-  - Few-shot prompting  
-  - Chain-of-thought prompting  
-  - Controlling outputs  
-- Retrieval-Augmented Generation (RAG)  
-- Vector Databases & Search  
-- Indexing Strategies  
-- AI Agents & Autonomous Workflows  
-- Model Context Protocol (MCP)  
-- AI Ethics & Responsible AI  
+Basic programming, a terminal, Git, and JDK 21 or newer are enough for the project.
+No Python, Docker, model download, or API key is needed. Node.js 22+ and npm
+are needed only for repository maintenance.
 
----
+```sh
+git clone https://github.com/manikandan-ganesan-hub/my-ai-journey.git
+cd my-ai-journey/projects/runbook-assistant
+javac --release 21 -d build src/RunbookAssistant.java src/RunbookAssistantTest.java
+java -cp build RunbookAssistantTest
+java -cp build RunbookAssistant data/runbooks.tsv "How do I handle duplicate events?"
+```
 
-## 2. Tools and Platforms
+See the [project README](projects/runbook-assistant/README.md) for expected output,
+evaluation, configuration, and limitations. From the repository root, maintainers
+can run `npm ci` and `npm test`; see [CONTRIBUTING](CONTRIBUTING.md) for all checks.
 
-### APIs and Interfaces
-- Large Language Model APIs (OpenAI, Anthropic)  
-- Web-Based AI Chatbots  
-- AI-Enhanced IDEs  
-- Productivity Tools Powered by AI  
+## Repository structure
 
-### Low-Code / No-Code Platforms
-- Visual ML Builders  
-- Automated ML Services (AutoML)  
-- AI Application Builders  
+```text
+learning/                   Two modules and a glossary
+projects/runbook-assistant/  Java source, tests, and synthetic fixtures
+architecture/               Backend design walkthrough
+scripts/                    Link checking and Java verification
+.github/                    CI, Dependabot, and contribution templates
+ROADMAP.md                  Planned work with completion criteria
+RESOURCES.md                Checked sources and reading suggestions
+docs/                       Initial audit and release verification
+```
 
-### Experiment Tracking & Visualization
-- MLflow  
-- Weights & Biases  
-- TensorBoard  
+## Contributing and attribution
 
----
+Corrections, reproducible failures, and small experiments are welcome. Read
+[CONTRIBUTING.md](CONTRIBUTING.md) before changing code or adding a topic.
+Use original explanations and diagrams. Cite official documentation or original
+papers beside technical claims; record an access date for changing documentation.
+External resources remain the work of their authors and are not bundled here.
 
-## 3. Practical Coding & Projects
+## Next steps
 
-### Environment Setup
-- Python & Essential Libraries Installation  
-- Getting Started with Google Colab  
-- Jupyter Notebooks  
-- Git & GitHub Basics  
+Add a tested Spring AI generation adapter, compare retrieval methods on a larger
+dataset, then add a Python comparison. Mathematics, ML workflow, deployment,
+and agent topics remain in the [roadmap](ROADMAP.md); no empty topic folders are
+created to imply coverage.
 
-### Beginner Projects
-- Linear Regression from Scratch  
-- Image Classification using CNNs  
-- Basic Text Classification  
+## Author and license
 
-### Intermediate Projects
-- Fine-tuning Pretrained NLP Models  
-- Chatbot Development with LLM APIs  
-- Building a Retrieval-Augmented Generation Pipeline  
+Manikandan Ganesan is a technology architect with 18+ years in enterprise and
+low-latency systems, including Java, Spring Boot, Kafka, Flink, Redis, RocksDB,
+and financial platforms. This repository documents learning in AI engineering;
+it does not claim AI research expertise or production AI deployments.
 
----
-
-## 4. Learning & Growth Strategies
-- Building a Personalized AI Learning Roadmap  
-- Recommended Courses & Resources  
-- Creating & Showcasing a Project Portfolio  
-- Staying Up-to-Date with AI Trends  
-
----
-
-## 5. Community Engagement & Contribution
-- Collaborating on GitHub Projects  
-- Writing Effective Documentation  
-- Contributing to Open Source AI Projects  
-- Participating in AI Communities & Meetups  
-
----
-
-**Note:** This repository is continuously evolving. The goal is to provide a **complete learning journey**, from theory to practical applications, making it **accessible for beginners** while still being **valuable for professionals**.
-
+Original code and documentation are available under the [MIT license](LICENSE).
